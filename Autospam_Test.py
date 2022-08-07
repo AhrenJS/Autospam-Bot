@@ -2,15 +2,17 @@ import pyautogui
 import time
 from tkinter import *
 
-root4 = Tk()
-root4.title("Da Spammer Thing")
-root4.geometry("1000x1000")
+root = Tk()
+WIDTH = root.winfo_screenwidth()//3
+HEIGHT = root.winfo_screenheight()//2
+root.title("Da Spammer Thing")
+root.geometry(f"{WIDTH}x{HEIGHT}")
 
-spam_label = Label(root4, text="The\nGreat\nSpam", height=5, font=("Impact", "30"), anchor=CENTER)
+spam_label = Label(root, text="The\nGreat\nSpam", height=5, font=("Impact", "30"), anchor=CENTER)
 spam_label.pack(fill=BOTH, expand=TRUE)
-frame4_top = Frame(root4, width=500, height=400)
+frame4_top = Frame(root, width=WIDTH, height=HEIGHT*0.6)
 frame4_top.pack(side=TOP)
-frame4_bot = Frame(root4, width=500, height=100)
+frame4_bot = Frame(root, width=WIDTH, height=HEIGHT*0.4)
 frame4_bot.pack(side=BOTTOM)
 
 class spam_button:
@@ -36,10 +38,8 @@ class spam_button:
                     pyautogui.press("enter")
                     time.sleep(0.1)
             except:
-                self.text_spam = Label(frame4_bot, text="Spam has ended", fg="Red", anchor=CENTER, font="Georgia", height=5, width=10, padx=100)
-                self.text_spam.pack()
-                self.remove_but = Button(frame4_bot, text="Remove Notifications", command=self.remove_text)
-                self.remove_but.pack()
+                self.stop_spam()
+
     def start_spam(self):
         print("Normal Spam started")
         with open("Beemovie_Script", "r") as f:
@@ -50,15 +50,18 @@ class spam_button:
                     pyautogui.press("enter")
                     time.sleep(1)
             except:
-                self.text_spam = Label(frame4_bot, text="Spam has ended", fg="Red", anchor=CENTER, font="Georgia", height=5, width=10, padx=100)
-                self.text_spam.pack()
-                self.remove_but = Button(frame4_bot, text="Remove Notifications", command=self.remove_text)
-                self.remove_but.pack()
+                self.stop_spam()
 
     def remove_text(self):
         self.remove_but.pack_forget()
         self.text_spam.pack_forget()
 
-class_spam = spam_button(root4)
+    def stop_spam(self):
+        self.text_spam = Label(frame4_bot, text="Spam has ended", fg="Red", anchor=CENTER, font=("Georgia",10), pady=HEIGHT//15, padx=WIDTH//5)
+        self.text_spam.pack()
+        self.remove_but = Button(frame4_bot, text="Remove Notifications", command=self.remove_text)
+        self.remove_but.pack()
 
-root4.mainloop()
+class_spam = spam_button(root)
+
+root.mainloop()
