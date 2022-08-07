@@ -4,7 +4,7 @@ from tkinter import *
 
 root4 = Tk()
 root4.title("Da Spammer Thing")
-root4.geometry("500x500")
+root4.geometry("1000x1000")
 
 spam_label = Label(root4, text="The\nGreat\nSpam", height=5, font=("Impact", "30"), anchor=CENTER)
 spam_label.pack(fill=BOTH, expand=TRUE)
